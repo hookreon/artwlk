@@ -15,13 +15,9 @@ export default class SiteDetail extends React.Component {
   render() {
     return (
       <div className="SiteDetail">
-        <img src="" />
+        <img src={this.props.currSite.imageUrl} />
         <h3>{this.props.currSite.name}</h3>
-        <h5>Artist</h5>
-        <span>Rating</span><br/>
-        <span>Categories, Categories</span><br/>
-        <span>Tag, Tag</span><br/>
-        <button>View on map</button><br/>
+        <h5>{this.props.currSite.artist}</h5>
         <p>Details...</p>
         <ul>
           <li><strong>Comments</strong></li>
