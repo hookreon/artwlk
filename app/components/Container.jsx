@@ -24,6 +24,8 @@ export default class Container extends React.Component {
       selectedSites: [],
       tourFormData: {},
       address: '',
+      createForm: { name: '', artist: '', description: '', category: '', tags: '' },
+      createFormLocation: null,
     };
 
     this.convertToAddress = this.convertToAddress.bind(this);
@@ -39,6 +41,7 @@ export default class Container extends React.Component {
     this.reorderSites = this.reorderSites.bind(this);
     this.saveTourFormData = this.saveTourFormData.bind(this);
     this.doSearch = this.doSearch.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -146,6 +149,7 @@ export default class Container extends React.Component {
         latitude: lat,
         longitude: lng,
       },
+      createFormLocation: latLng,
     });
   }
 
@@ -170,6 +174,12 @@ export default class Container extends React.Component {
     });
     sites.splice(index, 1, site);
     this.setState({sites});
+  }
+
+  handleChange(event) {
+    const newCreate = this.state.createForm;
+    newCreate[event.target.dataset.name] = event.target.value;
+    this.setState({createForm: newCreate});
   }
 
   markerIconHandler(category) {
@@ -223,6 +233,7 @@ export default class Container extends React.Component {
           doSearch={this.doSearch}
           getCurrTour={this.getCurrTour}
           convertToAddress={this.convertToAddress}
+          handleChange={this.handleChange}
         />
         <ContainerNav />
       </div>
