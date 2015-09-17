@@ -3,8 +3,6 @@ import TopBarSection from './TopBarSection';
 import Modal from 'react-modal';
 import FilterSection from './FilterSection';
 import SearchSection from './SearchSection';
-import SiteList from './SiteList';
-import TourList from './TourList';
 
 // styles
 import '../styles/components/NearbySection';
@@ -25,6 +23,11 @@ export default class NearbySection extends React.Component {
     this.closeModal = this.closeModal.bind(this);
   }
 
+  componentDidMount() {
+    this.props.getTours();
+    this.props.getSites();
+  }
+
   openModal(modalContent) {
     if (modalContent === 'filter') {
       this.setState({modalContent: <FilterSection doFilterSearch={this.props.doFilterSearch} closeModal={this.closeModal}/>});
@@ -42,6 +45,7 @@ export default class NearbySection extends React.Component {
     this.context.router.transitionTo(route);
   }
 
+
   render() {
     return (
       <div className="NearbySection">
@@ -57,18 +61,8 @@ export default class NearbySection extends React.Component {
           <button onClick={this.routeTo.bind(this, 'tours')}>Tours</button>
           <button onClick={this.routeTo.bind(this, 'sites')}>Sites</button>
         </div>
-        <h2>Sites</h2>
-        <SiteList
-          limit="2"
-          {...this.state}
-          {...this.props}
-        />
-        <h2>Tours</h2>
-        <TourList
-          limit="2"
-          {...this.state}
-          {...this.props}
-        />
+        {this.props.nearbySitesLoader}
+        {this.props.nearbyToursLoader}
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
@@ -86,8 +80,11 @@ NearbySection.contextTypes = {
 
 NearbySection.propTypes = {
   getSites: React.PropTypes.func.isRequired,
+  getTours: React.PropTypes.func.isRequired,
   getCurrSite: React.PropTypes.func.isRequired,
   doSearch: React.PropTypes.func.isRequired,
   doFilterSearch: React.PropTypes.func.isRequired,
   params: React.PropTypes.object.isRequired,
+  nearbySitesLoader: React.PropTypes.node,
+  nearbyToursLoader: React.PropTypes.node,
 };

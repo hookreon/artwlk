@@ -13,10 +13,6 @@ export default class TourList extends React.Component {
     this.handleTourClick = this.handleTourClick.bind(this);
   }
 
-  componentDidMount() {
-    this.props.getTours();
-  }
-
   handleTourClick(tourId) {
     getTourByKey(tourId).then(tourInfo => {
       this.props.getCurrTour(tourInfo);
@@ -55,11 +51,11 @@ export default class TourList extends React.Component {
 }
 
 TourList.contextTypes = {
-  router: React.PropTypes.func.isRequired,
+  router: React.PropTypes.func,
 };
 
 TourList.propTypes = {
-  getTours: React.PropTypes.func.isRequired,
+  getTours: React.PropTypes.func,
   getCurrTour: React.PropTypes.func,
   tours: React.PropTypes.array,
   limit: React.PropTypes.string,

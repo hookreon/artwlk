@@ -6,6 +6,8 @@ import {getSiteByKey} from '../utils/sites';
 import {getAllTours} from '../utils/tours';
 import {onSearch} from '../utils/search';
 import {getTourByKey} from '../utils/tours';
+import SiteList from './SiteList';
+import TourList from './TourList';
 
 // styles
 import '../styles/components/Container';
@@ -30,6 +32,8 @@ export default class Container extends React.Component {
       photoUploadFile: null,
       searchProps: {},
       filterProps: {},
+      nearbySitesLoader: <div className="load"><hr/><hr/><hr/><hr/></div>,
+      nearbyToursLoader: <div className="load"><hr/><hr/><hr/><hr/></div>,
     };
 
     this.convertToAddress = this.convertToAddress.bind(this);
@@ -91,6 +95,7 @@ export default class Container extends React.Component {
   getTours() {
     getAllTours()
       .then(tours => {
+        console.log('1', tours);
         const tourPromises = tours.map(tour => {
           const sitePromises = tour.sites.map(site => {
             return getSiteByKey(site);
@@ -104,6 +109,7 @@ export default class Container extends React.Component {
         return Promise.all(tourPromises);
       })
       .then(tours => {
+        console.log('2', tours);
         tours.forEach(tour => {
           tour.categories = {};
           tour.sites.forEach(site => {
@@ -117,7 +123,18 @@ export default class Container extends React.Component {
         });
         return tours;
       })
-      .then(tours => this.setState({tours}))
+      .then(tours => {
+        console.log('3', tours);
+        this.setState({
+          tours,
+          nearbyToursLoader: (
+            <div>
+              <h2>Tours</h2>
+              <TourList limit="2" {...this.state} {...this.props} />
+            </div>
+          ),
+        });
+      })
       .catch(error => console.error(error)); // eslint-disable-line no-console
   }
 
@@ -128,6 +145,12 @@ export default class Container extends React.Component {
         .then(siteInfo => {
           this.setState({
             sites: this.state.sites.concat(siteInfo),
+            nearbySitesLoader: (
+              <div>
+                <h2>Sites</h2>
+                <SiteList limit="2" {...this.state} {...this.props} />
+              </div>
+            ),
           });
         });
       });
