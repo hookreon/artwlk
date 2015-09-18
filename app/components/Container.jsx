@@ -95,7 +95,6 @@ export default class Container extends React.Component {
   getTours() {
     getAllTours()
       .then(tours => {
-        console.log('1', tours);
         const tourPromises = tours.map(tour => {
           const sitePromises = tour.sites.map(site => {
             return getSiteByKey(site);
@@ -109,7 +108,6 @@ export default class Container extends React.Component {
         return Promise.all(tourPromises);
       })
       .then(tours => {
-        console.log('2', tours);
         tours.forEach(tour => {
           tour.categories = {};
           tour.sites.forEach(site => {
@@ -124,9 +122,12 @@ export default class Container extends React.Component {
         return tours;
       })
       .then(tours => {
-        console.log('3', tours);
         this.setState({
-          tours,
+          tours: tours,
+        });
+      })
+      .then(() => {
+        this.setState({
           nearbyToursLoader: (
             <div>
               <h2>Tours</h2>
