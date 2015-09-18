@@ -115,6 +115,7 @@ export default class TourSection extends React.Component {
           {...this.state}
           {...this.props}
         />
+      {this.props.tours.length ? null : this.props.nearbyToursLoader}
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
@@ -136,4 +137,6 @@ TourSection.propTypes = {
   params: React.PropTypes.object.isRequired,
   currTour: React.PropTypes.object,
   path: React.PropTypes.string,
+  tours: React.PropTypes.array,
+  nearbyToursLoader: React.PropTypes.node,
 };
