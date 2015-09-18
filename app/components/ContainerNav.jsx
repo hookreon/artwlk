@@ -1,4 +1,5 @@
 import React from 'react';
+import ContainerNavFabButton from './ContainerNavFabButton';
 
 // styles
 import '../styles/components/ContainerNav';
@@ -14,13 +15,15 @@ export default class ContainerNav extends React.Component {
   }
   render() {
     return (
-      <nav className="ContainerNav">
-        <button data-route="nearby" onClick={this._handleClick}>Nearby</button>
-        <button data-route="tours" onClick={this._handleClick}>Tours</button>
-        <button data-route="sites" onClick={this._handleClick}>Sites</button>
-        <button data-route="create" onClick={this._handleClick}>Create</button>
-        <button data-route="create-tour" onClick={this._handleClick}>Create Tour</button>
-      </nav>
+      <div>
+        <nav className="ContainerNav">
+          <button data-route="nearby" onClick={this._handleClick}>Nearby</button>
+          <button data-route="tours" onClick={this._handleClick}>Tours</button>
+          <button data-route="sites" onClick={this._handleClick}>Sites</button>
+        </nav>
+        <ContainerNavFabButton />
+      </div>
+
     );
   }
 }
