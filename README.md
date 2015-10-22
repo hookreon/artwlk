@@ -1,6 +1,6 @@
 # ARTWLK
 ####An application for users to discover and plot public art sites on a map.
-Public art is hard to find without prior knowledge or exploration of the area. ARTWLK allows users to share and discover locations of public art pieces through an easy to use interface.
+Public art is hard to find without prior knowledge or exploration of the area. ARTWLK allows users to share and discover locations of public art pieces through an easy to use interface. 
 
 ## Developer Documentation
 
